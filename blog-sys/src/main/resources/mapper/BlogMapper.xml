@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.sys.mapper.BlogMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.blog.sys.model.vo.BlogTagVo">
+		<id column="id" property="id"/>
+		<result column="category_id" property="categoryId"/>
+		<result column="type" property="type"/>
+		<result column="title" property="title"/>
+		<result column="content" property="content"/>
+		<result column="des" property="des"/>
+		<result column="password" property="password"/>
+		<result column="views" property="views"/>
+		<result column="words" property="words"/>
+		<result column="read_tm" property="readTm"/>
+		<result column="top_flag" property="topFlag"/>
+		<result column="pub_type" property="pubType"/>
+		<result column="crt_by" property="crtBy"/>
+		<result column="crt_tm" property="crtTm"/>
+		<result column="upd_by" property="updBy"/>
+		<result column="upd_tm" property="updTm"/>
+		<result column="del_flag" property="delFlag"/>
+		<collection property="tagList" ofType="com.blog.sys.entity.Tag"
+					select="com.blog.sys.mapper.TagMapper.listTagsByBlogId" column="id">
+		</collection>
+		<collection property="tagIdsList" ofType="java.lang.String"
+					select="com.blog.sys.mapper.TagMapper.listTagIdsByBlogId" column="id">
+		</collection>
+	</resultMap>
+
+	<select id="getBlogTagVosPage" resultMap="BaseResultMap">
+		SELECT
+		DISTINCT
+		b_blog.*
+		FROM b_blog left join b_blog_tag ON b_blog.id = b_blog_tag.blog_id
+		<where>
+			b_blog.del_flag = '0'
+			<if test="q.categoryId != null and q.categoryId != ''">
+				and b_blog.category_id = #{q.categoryId}
+			</if>
+			<if test="q.title != null and q.title != ''">
+				<bind name="title" value="'%' + q.title + '%'"/>
+				and b_blog.title LIKE #{title}
+			</if>
+			<if test="q.tagList != null and q.tagList.size() > 0">
+				and b_blog_tag.tag_id in
+				<foreach collection="query.tagList" item="r" index="index" open="(" close=")" separator=",">
+					#{r}
+				</foreach>
+			</if>
+		</where>
+		ORDER BY b_blog.crt_tm DESC
+	</select>
+
+	<select id="getBlogTagVoById" resultMap="BaseResultMap">
+		SELECT
+		DISTINCT
+		b_blog.*
+		FROM b_blog left join b_blog_tag ON b_blog.id = b_blog_tag.blog_id
+		WHERE b_blog.del_flag = '0' and b_blog.id = #{id}
+		ORDER BY b_blog.crt_tm DESC
+	</select>
+
+</mapper>

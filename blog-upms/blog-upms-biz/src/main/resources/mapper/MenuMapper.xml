@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.upms.biz.mapper.MenuMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.blog.upms.core.entity.Menu">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="permission" property="permission"/>
+		<result column="path" property="path"/>
+		<result column="parent_id" property="parentId"/>
+		<result column="icon" property="icon"/>
+		<result column="sort_order" property="sortOrder"/>
+		<result column="type" property="type"/>
+		<result column="keep_alive" property="keepAlive"/>
+		<result column="crt_by" property="crtBy"/>
+		<result column="crt_tm" property="crtTm"/>
+		<result column="upd_by" property="updBy"/>
+		<result column="upd_tm" property="updTm"/>
+		<result column="del_flag" property="delFlag"/>
+	</resultMap>
+
+	<!--通过角色查询菜单信息-->
+	<select id="listMenusByRoleId" resultMap="BaseResultMap">
+		SELECT t_menu.id,
+			   t_menu.name,
+			   t_menu.permission,
+			   t_menu.path,
+			   t_menu.parent_id,
+			   t_menu.icon,
+			   t_menu.sort_order,
+			   t_menu.keep_alive,
+			   t_menu.type,
+			   t_menu.del_flag,
+			   t_menu.crt_by,
+			   t_menu.crt_tm,
+			   t_menu.upd_by,
+			   t_menu.upd_tm
+		FROM t_menu
+				 LEFT JOIN t_role_menu ON t_menu.id = t_role_menu.menu_id
+		WHERE t_menu.del_flag = 0
+		  AND t_role_menu.role_id = #{roleId}
+		ORDER BY t_menu.sort_order DESC
+	</select>
+</mapper>

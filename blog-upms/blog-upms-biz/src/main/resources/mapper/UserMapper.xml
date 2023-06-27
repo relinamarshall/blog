@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.upms.biz.mapper.UserMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="baseResultMap" type="com.blog.upms.core.vo.UserVo">
+		<id column="id" property="id"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="salt" property="salt"/>
+		<result column="avatar" property="avatar"/>
+		<result column="ucrt_tm" property="crtTm"/>
+		<result column="uupd_tm" property="updTm"/>
+		<result column="lock_flag" property="lockFlag"/>
+		<result column="udel_flag" property="delFlag"/>
+		<collection property="roleList" ofType="com.blog.upms.core.entity.Role"
+					select="com.blog.upms.biz.mapper.RoleMapper.listRolesByUserId" column="id">
+		</collection>
+	</resultMap>
+
+	<!-- userVo结果集 -->
+	<resultMap id="userVoResultMap" type="com.blog.upms.core.vo.UserVo">
+		<id column="id" property="id"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="salt" property="salt"/>
+		<result column="avatar" property="avatar"/>
+		<result column="ucrt_tm" property="crtTm"/>
+		<result column="uupd_tm" property="updTm"/>
+		<result column="lock_flag" property="lockFlag"/>
+		<result column="udel_flag" property="delFlag"/>
+		<collection property="roleList" ofType="com.blog.upms.core.entity.Role">
+			<id column="role_id" property="id"/>
+			<result column="name" property="name"/>
+			<result column="code" property="code"/>
+			<result column="des" property="des"/>
+			<result column="rcrt_tm" property="crtTm"/>
+			<result column="rupd_tm" property="updTm"/>
+		</collection>
+	</resultMap>
+
+	<sql id="userRoleSql">
+		t_user.id,
+		t_user.username,
+		t_user.`password`,
+		t_user.salt,
+		t_user.avatar,
+		t_user.crt_tm AS ucrt_tm,
+		t_user.upd_tm AS uupd_tm,
+		t_user.del_flag    AS udel_flag,
+		t_user.lock_flag   AS lock_flag,
+		r.id as role_id,
+		r.name,
+		r.code,
+		r.des,
+		r.crt_tm        AS rcrt_tm,
+		r.upd_tm        AS rupd_tm
+	</sql>
+
+	<select id="getUserVoByUsername" resultMap="userVoResultMap">
+		SELECT
+		<include refid="userRoleSql"/>
+		FROM t_user AS t_user
+		LEFT JOIN t_user_role AS ur ON ur.user_id = t_user.id
+		LEFT JOIN t_role AS r ON r.id = ur.role_id
+		WHERE t_user.username = #{username}
+	</select>
+
+	<select id="getUserVoById" resultMap="userVoResultMap">
+		SELECT
+		<include refid="userRoleSql"/>
+		FROM t_user AS t_user
+			LEFT JOIN t_user_role AS ur ON ur.user_id = t_user.id
+			LEFT JOIN t_role AS r ON r.id = ur.role_id
+		WHERE t_user.id = #{id}
+	</select>
+
+	<select id="getUserVosPage" resultMap="baseResultMap">
+		SELECT
+		distinct
+		t_user.id,
+		t_user.username,
+		t_user.salt,
+		t_user.avatar,
+		t_user.crt_tm AS ucrt_tm,
+		t_user.upd_tm AS uupd_tm,
+		t_user.del_flag AS udel_flag,
+		t_user.lock_flag AS lock_flag
+		FROM t_user left join t_user_role ON t_user.id = t_user_role.user_id
+		<where>
+			t_user.del_flag = '0'
+			<if test="query.username != null and query.username != ''">
+				<bind name="usernameLike" value="'%' + query.username + '%'"/>
+				and t_user.username LIKE #{usernameLike}
+			</if>
+			<if test="query.lockFlag != null and query.lockFlag != ''">
+				<bind name="lockFlag" value="query.lockFlag"/>
+				and t_user.lock_flag = #{lockFlag}
+			</if>
+			<if test="query.role != null and query.role.size() > 0">
+				and t_user_role.role_id in
+				<foreach collection="query.role" item="r" index="index" open="(" close=")" separator=",">
+					#{r}
+				</foreach>
+			</if>
+		</where>
+		ORDER BY t_user.crt_tm DESC
+	</select>
+
+</mapper>

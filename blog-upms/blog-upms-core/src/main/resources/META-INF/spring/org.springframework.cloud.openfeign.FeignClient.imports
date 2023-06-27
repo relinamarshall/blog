@@ -1,0 +1,5 @@
+com.blog.upms.core.feign.RemoteClientDetailsService
+com.blog.upms.core.feign.RemoteDictService
+com.blog.upms.core.feign.RemoteLogService
+com.blog.upms.core.feign.RemoteTokenService
+com.blog.upms.core.feign.RemoteUserService

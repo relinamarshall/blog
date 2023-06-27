@@ -1,0 +1,6 @@
+com.blog.common.core.config.JacksonConfiguration
+com.blog.common.core.config.RedisTemplateConfiguration
+com.blog.common.core.config.RestTemplateConfiguration
+com.blog.common.core.config.TaskExecutorConfiguration
+com.blog.common.core.util.SpringContextHolder
+com.blog.common.core.config.WebMvcConfiguration

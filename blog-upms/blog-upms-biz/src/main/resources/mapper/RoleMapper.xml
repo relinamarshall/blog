@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.upms.biz.mapper.RoleMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.blog.upms.core.entity.Role">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="code" property="code"/>
+		<result column="des" property="des"/>
+		<result column="del_flag" property="delFlag"/>
+		<result column="crt_tm" property="crtTm"/>
+		<result column="upd_tm" property="updTm"/>
+		<result column="upd_by" property="updBy"/>
+		<result column="crt_by" property="crtBy"/>
+	</resultMap>
+
+	<!-- 通过用户ID，查询角色信息-->
+	<select id="listRolesByUserId" resultMap="BaseResultMap">
+		SELECT r.id,
+			   r.name,
+			   r.code,
+			   r.des,
+			   r.del_flag,
+			   r.crt_tm,
+			   r.upd_tm,
+			   r.upd_by,
+			   r.crt_by
+		FROM t_role r,
+			 t_user_role ur
+		WHERE r.id = ur.role_id
+		  AND r.del_flag = 0
+		  AND ur.user_id = #{userId}
+	</select>
+</mapper>

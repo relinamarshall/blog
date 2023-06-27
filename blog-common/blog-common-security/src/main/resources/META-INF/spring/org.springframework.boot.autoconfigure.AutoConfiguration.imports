@@ -1,0 +1,6 @@
+com.blog.common.security.service.ExtUserDetailsServiceImpl
+com.blog.common.security.service.DiyRedisOAuth2AuthorizationService
+com.blog.common.security.service.DiyRedisOAuth2AuthorizationConsentService
+com.blog.common.security.aspect.DiySecurityInnerAspect
+com.blog.common.security.component.SecurityMessageSourceConfiguration
+com.blog.common.security.service.DiyRemoteRegisteredClientRepository

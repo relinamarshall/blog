@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.blog</groupId>
+		<artifactId>blog-common</artifactId>
+		<version>0.0.1</version>
+	</parent>
+
+	<name>${project.artifactId}</name>
+	<artifactId>blog-common-log</artifactId>
+	<description>日志服务</description>
+
+	<dependencies>
+		<!--工具类核心包-->
+		<dependency>
+			<groupId>com.blog</groupId>
+			<artifactId>blog-common-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-extra</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-http</artifactId>
+		</dependency>
+		<!--UPMS接口模块-->
+		<dependency>
+			<groupId>com.blog</groupId>
+			<artifactId>blog-upms-core</artifactId>
+		</dependency>
+		<!--安全依赖获取上下文信息-->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>1.9.7</version>
+		</dependency>
+	</dependencies>
+</project>

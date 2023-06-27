@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.blog</groupId>
+		<artifactId>blog-upms</artifactId>
+		<version>0.0.1</version>
+	</parent>
+
+	<name>${project.artifactId}</name>
+	<artifactId>blog-upms-core</artifactId>
+	<description>通用用户权限管理聚合模块</description>
+
+	<dependencies>
+		<!--core 工具类-->
+		<dependency>
+			<groupId>com.blog</groupId>
+			<artifactId>blog-common-core</artifactId>
+		</dependency>
+		<!--swagger-->
+		<dependency>
+			<groupId>io.swagger.core.v3</groupId>
+			<artifactId>swagger-annotations</artifactId>
+		</dependency>
+		<!--feign 注解依赖-->
+		<dependency>
+			<groupId>com.blog</groupId>
+			<artifactId>blog-common-feign</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!--mybatis 依赖-->
+		<dependency>
+			<groupId>com.blog</groupId>
+			<artifactId>blog-common-mybatis</artifactId>
+		</dependency>
+		<!-- excel 导入导出 https://github.com/pig-mesh/excel-spring-boot-starter -->
+		<dependency>
+			<groupId>com.pig4cloud.excel</groupId>
+			<artifactId>excel-spring-boot-starter</artifactId>
+		</dependency>
+	</dependencies>
+</project>

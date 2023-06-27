@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.blog</groupId>
+		<artifactId>blog</artifactId>
+		<version>0.0.1</version>
+	</parent>
+
+	<name>${project.artifactId}</name>
+	<artifactId>blog-upms</artifactId>
+	<description>通用用户权限管理系统公共模块</description>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>blog-upms-core</module>
+		<module>blog-upms-biz</module>
+	</modules>
+
+</project>

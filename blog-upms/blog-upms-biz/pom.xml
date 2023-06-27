@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.blog</groupId>
+		<artifactId>blog-upms</artifactId>
+		<version>0.0.1</version>
+	</parent>
+
+	<name>${project.artifactId}</name>
+	<artifactId>blog-upms-biz</artifactId>
+	<description>通用用户权限管理系统业务处理模块</description>
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<!--xxl-job-->
+		<dependency>
+			<groupId>com.blog</groupId>
+			<artifactId>blog-common-job</artifactId>
+		</dependency>
+		<!--upms core、model 模块-->
+		<dependency>
+			<groupId>com.blog</groupId>
+			<artifactId>blog-upms-core</artifactId>
+		</dependency>
+		<!--feign 调用-->
+		<dependency>
+			<groupId>com.blog</groupId>
+			<artifactId>blog-common-feign</artifactId>
+		</dependency>
+		<!--安全模块-->
+		<dependency>
+			<groupId>com.blog</groupId>
+			<artifactId>blog-common-security</artifactId>
+		</dependency>
+		<!--日志处理-->
+		<dependency>
+			<groupId>com.blog</groupId>
+			<artifactId>blog-common-log</artifactId>
+		</dependency>
+		<!--接口文档-->
+		<dependency>
+			<groupId>com.blog</groupId>
+			<artifactId>blog-common-swagger</artifactId>
+		</dependency>
+		<!-- orm 模块-->
+		<dependency>
+			<groupId>com.baomidou</groupId>
+			<artifactId>mybatis-plus-boot-starter</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+		</dependency>
+		<!--注册中心客户端-->
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+		</dependency>
+		<!--配置中心客户端-->
+		<dependency>
+			<groupId>com.alibaba.cloud</groupId>
+			<artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+		</dependency>
+		<!--xss 过滤-->
+		<dependency>
+			<groupId>com.blog</groupId>
+			<artifactId>blog-common-xss</artifactId>
+		</dependency>
+		<!--undertow容器-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-undertow</artifactId>
+		</dependency>
+	</dependencies>
+</project>

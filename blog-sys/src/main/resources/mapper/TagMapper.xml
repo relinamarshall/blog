@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.blog.sys.mapper.TagMapper">
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.blog.sys.entity.Tag">
+		<id column="id" property="id"/>
+		<result column="name" property="name"/>
+		<result column="color" property="color"/>
+		<result column="crt_by" property="crtBy"/>
+		<result column="crt_tm" property="crtTm"/>
+		<result column="upd_by" property="updBy"/>
+		<result column="upd_tm" property="updTm"/>
+		<result column="del_flag" property="delFlag"/>
+	</resultMap>
+
+	<!-- 通过用户ID，查询角色信息-->
+	<select id="listTagsByBlogId" resultMap="BaseResultMap">
+		SELECT t.id,
+			   t.name,
+			   t.color,
+			   t.del_flag,
+			   t.crt_tm,
+			   t.upd_tm,
+			   t.upd_by,
+			   t.crt_by
+		FROM b_tag t,
+			 b_blog_tag bt
+		WHERE t.id = bt.tag_id
+		  AND t.del_flag = 0
+		  AND bt.blog_id = #{blogId}
+	</select>
+
+	<select id="listTagIdsByBlogId" resultType="java.lang.String">
+		SELECT t.id
+		FROM b_tag t,
+			 b_blog_tag bt
+		WHERE t.id = bt.tag_id
+		  AND t.del_flag = 0
+		  AND bt.blog_id = #{blogId}
+	</select>
+</mapper>

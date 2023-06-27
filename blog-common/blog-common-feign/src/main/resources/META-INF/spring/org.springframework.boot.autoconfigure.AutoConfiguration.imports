@@ -1,0 +1,4 @@
+com.blog.common.feign.FeignAutoConfiguration
+com.blog.common.feign.FeignRetryAutoConfiguration
+com.blog.common.feign.sentinel.SentinelAutoConfiguration
+com.blog.common.feign.sentinel.handle.GlobalBizExceptionHandler
